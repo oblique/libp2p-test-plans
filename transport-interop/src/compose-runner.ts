@@ -46,6 +46,8 @@ export async function run(namespace: string, compose: ComposeSpecification, opts
     }
 
     try {
+        await exec(`docker compose -f ${path.join(dir, "compose.yaml")} build`);
+
         const { stdout, stderr } = await exec(`docker compose -f ${path.join(dir, "compose.yaml")} up ${upFlags.join(" ")}`, {
             signal: AbortSignal.timeout(1000 * timeoutSecs)
         })
